@@ -9,7 +9,7 @@ void setToken(int (*board)[7][6], int i, int j, int v) {
     (*board)[i][j] = v;
 }
 
-void print_array2(const int (*board)[7][6])
+void print_array2(int (*board)[7][6])
 {
     printf("board:\n");
     for (int i = 0; i < 7; i++)
@@ -68,6 +68,31 @@ int victoryCheck(int (*board)[7][6], int x, int y) {
                 int sum = 0;
                 for (int k = 0; k < 4; ++k)
                     sum += (*board)[i][i + x - y];
+                if (sum == 4)
+                    return 1;
+                else if (sum == 20)
+                    return 2;
+            }
+        }
+    }
+
+    // Descending diagonal check
+    if(x - (5 - y) > - 3 && x - (5 - y) < 4) {
+        if (x - (5 - y) < 1) { //below the center diagonal
+            for (int i = 0; i < 7 - 4 - (x - (5 - y)) + 1; ++i) {   // 7 is the max row, 4 account for the starting row
+                int sum = 0;
+                for (int k = 0; k < 4; ++k)
+                    sum += (*board)[i + x - (5 - y)][i];
+                if (sum == 4)
+                    return 1;
+                else if (sum == 20)
+                    return 2;
+            }
+        } else {  //above the center diagonal
+            for (int i = 0; i < 6 - 4 - ((5 - y) - x) + 1; ++i) {
+                int sum = 0;
+                for (int k = 0; k < 4; ++k)
+                    sum += (*board)[i][i + x - (5 - y)];
                 if (sum == 4)
                     return 1;
                 else if (sum == 20)
