@@ -12,11 +12,11 @@ void setToken(int (*board)[7][6], int i, int j, int v) {
 void print_array2(int (*board)[7][6])
 {
     printf("board:\n");
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 6; i++)
     {
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < 7; j++)
         {
-            printf("%i ", (*board)[i][j]);
+            printf("%i ", (*board)[j][5-i]);  //flipped
         }
         printf("\n");
     }
@@ -32,8 +32,11 @@ int victoryCheck(int (*board)[7][6], int x, int y) {
     //Horizontal check
     for (int i = 0; i < 4; ++i) {   //number of checks to do
         int sum = 0;
-        for (int k = 0; k < 4; ++k) //summing the row
-            sum += (*board)[i+k][y];
+        for (int k = 0; k < 4; ++k) {//summing the row
+            sum += (*board)[i + k][y];
+            //printf("%i", (*board)[i + k][y]);
+        }
+        //printf("\n sum %i \n", sum);
         if(sum == 4)
             return 1;
         else if(sum == 20)
@@ -41,10 +44,10 @@ int victoryCheck(int (*board)[7][6], int x, int y) {
     }
 
     //Vertical check
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 3; ++i) {
         int sum = 0;
         for (int k = 0; k < 4; ++k)
-            sum += (*board)[x][i+k];
+            sum += (*board)[x][i + k];
         if (sum == 4)
             return 1;
         else if (sum == 20)
@@ -52,12 +55,12 @@ int victoryCheck(int (*board)[7][6], int x, int y) {
     }
 
     // Ascending diagonal check
-    if(x - y > - 2 && x - y < 3) {
+    if(x - y > - 3 && x - y < 4) {
         if (x - y > 0) { //below the center diagonal
             for (int i = 0; i < 7 - 4 - (x - y) + 1; ++i) {   // 7 is the max row, 4 account for the starting row
                 int sum = 0;
                 for (int k = 0; k < 4; ++k)
-                    sum += (*board)[i + x - y][i];
+                    sum += (*board)[i + k + x - y][i + k];
                 if (sum == 4)
                     return 1;
                 else if (sum == 20)
@@ -67,7 +70,7 @@ int victoryCheck(int (*board)[7][6], int x, int y) {
             for (int i = 0; i < 6 - 4 - (y - x) + 1; ++i) {
                 int sum = 0;
                 for (int k = 0; k < 4; ++k)
-                    sum += (*board)[i][i + x - y];
+                    sum += (*board)[i + k][i + k + x - y];
                 if (sum == 4)
                     return 1;
                 else if (sum == 20)
@@ -79,20 +82,20 @@ int victoryCheck(int (*board)[7][6], int x, int y) {
     // Descending diagonal check
     if(x - (5 - y) > - 3 && x - (5 - y) < 4) {
         if (x - (5 - y) < 1) { //below the center diagonal
-            for (int i = 0; i < 7 - 4 - (x - (5 - y)) + 1; ++i) {   // 7 is the max row, 4 account for the starting row
+            for (int i = 0; i < (2 + x - (5 - y)); ++i) {
                 int sum = 0;
                 for (int k = 0; k < 4; ++k)
-                    sum += (*board)[i + x - (5 - y)][i];
+                    sum += (*board)[i + k + x - (5 - y)+2][i + k];
                 if (sum == 4)
                     return 1;
                 else if (sum == 20)
                     return 2;
             }
         } else {  //above the center diagonal
-            for (int i = 0; i < 6 - 4 - ((5 - y) - x) + 1; ++i) {
+            for (int i = 0; i < 2 - (x - (5 - y)) + 1; ++i) {
                 int sum = 0;
                 for (int k = 0; k < 4; ++k)
-                    sum += (*board)[i][i + x - (5 - y)];
+                    sum += (*board)[(x - (5 - y)) + i + k][5-k-i];
                 if (sum == 4)
                     return 1;
                 else if (sum == 20)
