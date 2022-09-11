@@ -5,9 +5,6 @@
 #include "Game.h"
 #include <stdio.h>
 
-#define min(a,b) (((a)<(b))?(a):(b))
-#define max(a,b) (((a)>(b))?(a):(b))
-
 void setToken(int (*board)[7][6], int i, int j, int v) {
     (*board)[i][j] = v;
 }
@@ -15,9 +12,9 @@ void setToken(int (*board)[7][6], int i, int j, int v) {
 void print_array2(const int (*board)[7][6])
 {
     printf("board:\n");
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 7; i++)
     {
-        for (int j = 0; j < 7; j++)
+        for (int j = 0; j < 6; j++)
         {
             printf("%i ", (*board)[i][j]);
         }
@@ -79,31 +76,5 @@ int victoryCheck(int (*board)[7][6], int x, int y) {
         }
     }
 
-    /*
-    // Ascending diagonal check
-    //TODO: check out of bound errors
-    int start = min(max(0, x-3), max(0, y-3));
-    int end = max(min(6, x-3), min(7, y-3));
-    for (int i = start; i < 4; ++i) {
-        sum=(*board)[x+i-3][y+i-3] + (*board)[x+i-2][y+i-2] + (*board)[x+i-1][y+i-1] + (*board)[x+i][y+i];
-        if(sum == 4)
-            return 1;
-        else if(sum == 20)
-            return 2;
-        sum = 0;
-    }
-
-
-    // Descending diagonal check
-    //TODO: check out of bound errors
-    for (int i = 0; i < 4; ++i) {
-        sum=(*board)[x-i-3][y-i+3] + (*board)[x-i+2][y-i+2] + (*board)[x-i+1][y-i+1] + (*board)[x-i][y-i];
-        if(sum == 4)
-            return 1;
-        else if(sum == 20)
-            return 2;
-        sum = 0;
-    }
-*/
     return 0;
 }
