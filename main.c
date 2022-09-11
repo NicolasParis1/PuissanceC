@@ -25,8 +25,8 @@ int main(int argc, char *argv[]) {
         do {
             if(p1_turn) {   //Player 1 turn, waiting for his input
                 do {
-                    i = rand() % 6;
-                    j = rand() % 7;
+                    i = rand() % 7;
+                    j = rand() % 8;
                 }
                 while(board[i][j] != 0);
                 setToken(&board, i, j, 1);
@@ -42,9 +42,12 @@ int main(int argc, char *argv[]) {
             Nturn ++;
             p1_turn = !p1_turn; //flip to alternate player
             print_array2(&board);
-        } while (!(victoriousPlayer=victoryCheck(&board, i, j)) || Nturn == 42);
-
-        printf("Player %d won !", victoriousPlayer);
+        } while (!(victoriousPlayer=victoryCheck(&board, i, j)) && Nturn != 43);    // play as long as no one won or if
+        // there are still valid move to make
+        if(Nturn == 43)
+            printf("Draw !");
+        else
+            printf("Player %d won !", victoriousPlayer);
     }
     else
         //TODO: mode client / mode serveur
