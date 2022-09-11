@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
                 setToken(&board, i, j, 5);
             }
             p1_turn = !p1_turn; //flip to alternate player
+            print_array2(&board);
         } while (!(victoriousPlayer=victoryCheck(&board, i, j)));
 
         printf("Player %d won !", victoriousPlayer);
