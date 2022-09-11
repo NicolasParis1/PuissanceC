@@ -8,10 +8,10 @@ int main(int argc, char *argv[]) {
         printf("mode local\n");
 
         //create and initialize the board
-        int board[6][7];
-        for (int i = 0; i < 6; ++i) {
-            for (int j = 0; j < 7; ++j) {
-                board[i][j] = 0;
+        int board[7][6];
+        for (int x = 0; x < 7; ++x) {
+            for (int y = 0; y < 6; ++y) {
+                board[x][y] = 0;
             }
         }
 
@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
         printf("Player %d won !", victoriousPlayer);
     }
     else
+        //TODO: mode client / mode serveur
         return 0;
     return 0;
 }
