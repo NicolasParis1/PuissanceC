@@ -17,7 +17,7 @@ void setToken(int (*board)[7][6], int i, int j, int v) {
     (*board)[i][j] = v;
 }
 
-void print_array2(int (*board)[7][6])
+void print_array(int (*board)[7][6])
 {
     printf("board:\n");
     for (int i = 0; i < 6; i++)

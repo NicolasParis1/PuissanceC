@@ -28,21 +28,21 @@ int main(int argc, char *argv[]) {
                     i = rand() % 7;
                 }
                 while(board[i][5] != 0);
-                j = placeTokenTop(&board, i, 1);
+                j = placeTokenTop(&board, i, 100);
             }
             else {  //player 2 turn, waiting for his move
                 do {
                     i = rand() % 7;
                 }
                 while(board[i][5] != 0);
-                j = placeTokenTop(&board, i, 5);
+                j = placeTokenTop(&board, i, 500);
             }
             Nturn ++;
             p1_turn = !p1_turn; //flip to alternate player
-            print_array2(&board);
-        } while (!(victoriousPlayer=victoryCheck(&board, i, j)) && Nturn != 43);    // play as long as no one won or if
+            print_array(&board);
+        } while (!(victoriousPlayer=victoryCheck(&board, i, j)) && Nturn != 42);    // play as long as no one won or if
         // there are still valid move to make
-        if(Nturn == 43)
+        if(Nturn == 42)
             printf("Draw !");
         else
             printf("Player %d won !", victoriousPlayer);
