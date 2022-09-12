@@ -5,6 +5,14 @@
 #include "Game.h"
 #include <stdio.h>
 
+int placeTokenTop(int (*board)[7][6], int x, int v) {
+    int i = 5;
+    while((*board)[x][i]==0 && i>=0)
+        i--;
+    setToken(board, x, i+1, v);
+    return i+1;
+}
+
 void setToken(int (*board)[7][6], int i, int j, int v) {
     (*board)[i][j] = v;
 }

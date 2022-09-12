@@ -26,18 +26,16 @@ int main(int argc, char *argv[]) {
             if(p1_turn) {   //Player 1 turn, waiting for his input
                 do {
                     i = rand() % 7;
-                    j = rand() % 8;
                 }
-                while(board[i][j] != 0);
-                setToken(&board, i, j, 1);
+                while(board[i][5] != 0);
+                j = placeTokenTop(&board, i, 1);
             }
             else {  //player 2 turn, waiting for his move
                 do {
-                    i = rand() % 6;
-                    j = rand() % 7;
+                    i = rand() % 7;
                 }
-                while(board[i][j] != 0);
-                setToken(&board, i, j, 5);
+                while(board[i][5] != 0);
+                j = placeTokenTop(&board, i, 5);
             }
             Nturn ++;
             p1_turn = !p1_turn; //flip to alternate player
