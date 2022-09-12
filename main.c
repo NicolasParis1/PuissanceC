@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Game.h"
+#include "solver.h"
 
 
 int main(int argc, char *argv[]) {
@@ -18,6 +19,15 @@ int main(int argc, char *argv[]) {
             }
         }
 
+        //Solver
+        int position[42];
+        position[0] = 1;
+        position[1] = 2;
+        position[2] = 5;
+        printf("%i", NMovesFromStart(&position));
+
+
+        /*
         bool p1_turn = true;    //the game begins with player1
         int victoriousPlayer;
         int i, j;
@@ -28,14 +38,14 @@ int main(int argc, char *argv[]) {
                     i = rand() % 7;
                 }
                 while(board[i][5] != 0);
-                j = placeTokenTop(&board, i, 100);
+                j = placeTokenTop(&board, i, 1);
             }
             else {  //player 2 turn, waiting for his move
                 do {
                     i = rand() % 7;
                 }
                 while(board[i][5] != 0);
-                j = placeTokenTop(&board, i, 500);
+                j = placeTokenTop(&board, i, 5);
             }
             Nturn ++;
             p1_turn = !p1_turn; //flip to alternate player
@@ -46,6 +56,7 @@ int main(int argc, char *argv[]) {
             printf("Draw !");
         else
             printf("Player %d won !", victoriousPlayer);
+            */
     }
     else
         //TODO: mode client / mode serveur

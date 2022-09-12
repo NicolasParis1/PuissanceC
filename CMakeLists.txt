@@ -3,4 +3,4 @@ project(PuissanceC C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(PuissanceC main.c Game.c Game.h)
+add_executable(PuissanceC main.c Game.c Game.h solver.c solver.h)
