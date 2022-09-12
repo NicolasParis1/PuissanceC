@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
         position[0] = 1;
         position[1] = 2;
         position[2] = 5;
-        printf("%i", NMovesFromStart(&position));
+        printf("%i", NMovesFromStart(position));
 
 
         /*

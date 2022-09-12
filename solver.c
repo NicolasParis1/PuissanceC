@@ -36,5 +36,5 @@ bool canPlay(int *position, int col) {
 }
 
 bool isWinningMove(int *position, int col) {
-
+    
 }
