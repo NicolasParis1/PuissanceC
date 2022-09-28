@@ -4,6 +4,7 @@
 #include <time.h>
 #include "Game.h"
 #include "solver.h"
+#include "network.h"
 
 
 int main(int argc, char *argv[]) {
@@ -27,7 +28,7 @@ int main(int argc, char *argv[]) {
         printf("%i", NMovesFromStart(position));
 
 
-        /*
+
         bool p1_turn = true;    //the game begins with player1
         int victoriousPlayer;
         int i, j;
@@ -56,11 +57,24 @@ int main(int argc, char *argv[]) {
             printf("Draw !");
         else
             printf("Player %d won !", victoriousPlayer);
-            */
+
     }
-    else
-        //TODO: mode client / mode serveur
+    else if(argc==3) {
+        int option = argv[1][1];
+        if(option==115) {    //server
+            int port = atoi(argv[2]);
+            SOCKET sock;
+            SOCKET csock;
+
+
+
+
+        }
+        else if(option==99) {  //client
+
+        }
         return 0;
+    }
     return 0;
 }
 

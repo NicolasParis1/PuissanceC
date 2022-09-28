@@ -12,6 +12,7 @@ Implementation of the minimax algorithm. Recursively solve connect 4 using the n
  */
 int negamax(int x, int y) {
 
+
 }
 
 int NMovesFromStart(int *position) {
