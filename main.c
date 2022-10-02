@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "Game.h"
 #include "solver.h"
 #include "network.h"
@@ -65,13 +66,19 @@ int main(int argc, char *argv[]) {
             int port = atoi(argv[2]);
             SOCKET sock;
             SOCKET csock;
-
-
-
+            createSocket(port, sock, csock);
+            closeSocket(sock, csock);
 
         }
         else if(option==99) {  //client
+            char* token = strtok(argv[2], ":");
+            char ip[16];
+            strcpy(ip, token);
+            token = strtok(NULL, ":");
+            int port = atoi(token);
 
+            int csock = connectSocket(ip, port);
+            closeClient(csock);
         }
         return 0;
     }

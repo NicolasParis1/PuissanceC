@@ -10,4 +10,7 @@ typedef int SOCKET;
 void createSocket(int, SOCKET*, SOCKET*);
 void closeSocket(SOCKET, SOCKET);
 
+int connectSocket(char*, int);
+void closeClient(int);
+
 #endif //PUISSANCEC_NETWORK_H

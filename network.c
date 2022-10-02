@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
@@ -20,7 +21,12 @@ typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;
 typedef struct sockaddr SOCKADDR;
 
-void createSocket(int port, SOCKET sock, SOCKET csock) {
+struct sockets {
+    SOCKET sock;
+    SOCKET csock;
+};
+
+void createSocket(int port, SOCKET* sock, SOCKET* csock) {
 
     /* Socket et contexte d'adressage du serveur */
     SOCKADDR_IN sin;
@@ -78,4 +84,36 @@ void createSocket(int port, SOCKET sock, SOCKET csock) {
 void closeSocket(SOCKET sock, SOCKET csock) {
     closesocket(csock);
     closesocket(sock);
+}
+
+int connectSocket(char* hostname, int port) {
+
+    SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+    if(sock == INVALID_SOCKET)
+    {
+        perror("socket()");
+    }
+
+    int client_fd;
+
+    struct sockaddr_in serv_addr;
+
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(port);
+
+    inet_pton(AF_INET, hostname, &serv_addr.sin_addr);
+    client_fd = connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+
+
+    char buffer[1024];
+    if(send(sock, buffer, strlen(buffer), 0) < 0)
+    {
+        perror("send()");
+    }
+    return client_fd;
+
+}
+
+void closeClient(int client_fd) {
+    close(client_fd);
 }
