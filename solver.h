@@ -7,7 +7,7 @@
 
 #include <stdbool.h>
 
-int negamax(int, int);
+int negamax(int *position, int col);
 int NMovesFromStart(int *);
 bool canPlay(int *, int);
 bool isWinningMove(int *, int);
