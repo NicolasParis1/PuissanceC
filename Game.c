@@ -31,6 +31,33 @@ void print_array(int (*board)[7][6])
     printf("\n");
 }
 
+int victoryCheckFromPosition(int *position) {
+    // Reconstruct the board from the position, then check with the regular function
+
+    int board[7][6];
+    for (int x = 0; x < 7; ++x) {
+        for (int y = 0; y < 6; ++y) {
+            board[x][y] = 0;
+        }
+    }
+
+    int i = 0;
+    int j = 0;
+    int player = 1;
+    while(position[i] != -1) {
+        j = placeTokenTop(&board, position[i], player);
+        i++;
+        if(player==1)
+            player=5;
+        else
+            player=1;
+    }
+    print_array(&board);
+
+    int res = victoryCheck(&board, i, j);
+    return res;
+}
+
 int victoryCheck(int (*board)[7][6], int x, int y) {
     // (There is only a handful of positions to check to know if the game ended or not. Knowing the position of the
     // last token played, we can check only the sets of 4 tokens in which the last position is)
