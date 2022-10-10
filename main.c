@@ -22,30 +22,13 @@ int main(int argc, char *argv[]) {
         }
 
         //Solver
-        int position[43];
-        for (int i = 0; i < 43; ++i) {
-            position[i] = -1;
-        }
-        position[0] = 2;
-        position[1] = 5;
-        position[2] = 1;
-        position[3] = 1;
+        int position[42];
+        position[0] = 1;
+        position[1] = 2;
+        position[2] = 5;
+        printf("%i", NMovesFromStart(position));
 
-        char str[42] = "2252576253462244111563365343671351441";
-        int i =0;
-        while(str[i]!='\0') {
-            position[i] = str[i]-48;
-            i++;
-        }
 
-        for (int j = 0; j < 43; ++j) {
-            printf("%d",position[j]);
-        }
-
-        int score = negamax(position,0);
-        printf("%d", score);
-
-        /*
 
         bool p1_turn = true;    //the game begins with player1
         int victoriousPlayer;
@@ -98,7 +81,6 @@ int main(int argc, char *argv[]) {
             closeClient(csock);
         }
         return 0;
-        */
     }
     return 0;
 }

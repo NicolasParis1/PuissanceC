@@ -11,6 +11,5 @@ void setToken(int (*board)[7][6], int i, int j, int v);
 int placeTokenTop(int (*board)[7][6], int x, int v);
 void print_array(int (*)[7][6]);
 int victoryCheck(int (*)[7][6], int, int);
-int victoryCheckFromPosition(int *);
 
 #endif //PUISSANCEC_GAME_H
