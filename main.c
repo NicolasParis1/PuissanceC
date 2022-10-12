@@ -26,23 +26,19 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < 43; ++i) {
             position[i] = -1;
         }
-        position[0] = 2;
-        position[1] = 5;
-        position[2] = 1;
-        position[3] = 1;
 
         char str[42] = "2252576253462244111563365343671351441";
         int i =0;
         while(str[i]!='\0') {
-            position[i] = str[i]-48;
+            position[i] = str[i]-49;
             i++;
         }
 
-        for (int j = 0; j < 43; ++j) {
+        for (int j = 0; j < 42; ++j) {
             printf("%d",position[j]);
         }
 
-        int score = negamax(position,0);
+        int score = negamax_start(position);
         printf("%d", score);
 
         /*

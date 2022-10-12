@@ -31,7 +31,7 @@ void print_array(int (*board)[7][6])
     printf("\n");
 }
 
-int victoryCheckFromPosition(int *position) {
+int victoryCheckFromPosition(int *position, int col) {
     // Reconstruct the board from the position, then check with the regular function
 
     int board[7][6];
@@ -52,7 +52,8 @@ int victoryCheckFromPosition(int *position) {
         else
             player=1;
     }
-    print_array(&board);
+    j = placeTokenTop(&board, col, player);
+    //print_array(&board);
 
     int res = victoryCheck(&board, i, j);
     return res;

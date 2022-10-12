@@ -1,8 +1,8 @@
-#include "SDL.h"
+#include <SDL.h>
 #include "ihm.h"
 #undef main
 #include <iostream>
-#include <conio.h>
+//#include <conio.h>
 
 
 //don't do this, this is just an example
@@ -15,7 +15,7 @@ bool p4_unseted = true;
 
 
 //please don't put all your code in main like I did.
-int main() {
+int main_sdl() {
 	init_window();
 	int n_collum = 0;
 

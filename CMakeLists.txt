@@ -1,10 +1,15 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.7)
 project(PuissanceC C CXX)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_C_STANDARD 99)
 
-add_executable(PuissanceC main.c Game.c Game.h solver.c solver.h network.c network.h ihm.cpp ihm.h)
+add_executable(PuissanceC main.c Game.c Game.h solver.c solver.h network.c network.h ihm.cpp)
 
+#SDL2
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+target_link_libraries(PuissanceC ${SDL2_LIBRARIES})
 
 #GTEST
 include(FetchContent)
@@ -27,6 +32,9 @@ target_link_libraries(
         testSolver
         GTest::gtest_main
 )
+
+add_library(solver solver.c Game.c)
+target_link_libraries(testSolver solver)
 
 include(GoogleTest)
 gtest_discover_tests(testSolver)
