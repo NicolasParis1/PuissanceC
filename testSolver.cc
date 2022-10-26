@@ -38,7 +38,7 @@ TEST(testSolver, Negamax) {
             else
                 expected_score = line[0] - 48;
 
-            int score = negamax_start(position);
+            int score = negamax(position);
 
             ASSERT_EQ(expected_score, score);
             std::cout << "test " << n_test <<" passed ! score : "<< score << std::endl;

@@ -53,7 +53,7 @@ int victoryCheckFromPosition(int *position, int col) {
             player=1;
     }
     j = placeTokenTop(&board, col, player);
-    //print_array(&board);
+    print_array(&board);
 
     int res = victoryCheck(&board, i, j);
     return res;

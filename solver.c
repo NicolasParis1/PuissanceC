@@ -12,28 +12,11 @@ http://blog.gamesolver.org/solving-connect-four/01-introduction/
 Implementation of the minimax algorithm. Recursively solve connect 4 using the negamax variant.
  */
 
-int negamax_start(int *position) {
-    int a, b;
-    int position_cpy[42];
-    b=-41;
-    for (int i = 0; i < 7; ++i) {
-        for (int j = 0; j < 42; ++j) {
-            position_cpy[j] = position[j];
-        }
-        if(canPlay(position_cpy, i)) {
-            a = negamax(position_cpy, i);
-            if (a > b)
-                b = a;
-        }
-    }
-    return b;
-}
-
-int negamax(int *position, int col) {
+int negamax(int *position) {
     int n_moves = NMovesFromStart(position);
     //position[n_moves]=col;
 
-    if(n_moves>=41)
+    if(n_moves>=42)
         return 0;   //draw
 
     for (int x = 0; x < 7; ++x) //check if next move is winning
@@ -46,7 +29,7 @@ int negamax(int *position, int col) {
     for (int x = 0; x < 7; ++x) {
         if(canPlay(position, x)) {
             position[n_moves] = x;
-            int score = -negamax(position, x);
+            int score = -negamax(position);
             if(score > best_score)
                 best_score=score;
         }
