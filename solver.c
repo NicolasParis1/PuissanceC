@@ -1,18 +1,18 @@
 //
 // Created by nicolas on 12/09/22.
 //
-
+/*
 #include "solver.h"
 #include "Game.h"
 #include <stdio.h>
 
-
-/*
+#define MAX_DEPTH 30
+*//*
 http://blog.gamesolver.org/solving-connect-four/01-introduction/
 Implementation of the minimax algorithm. Recursively solve connect 4 using the negamax variant.
  */
-
-int negamax(int *position) {
+/*
+int negamax(int *position, int depth) {
     int n_moves = NMovesFromStart(position);
     //position[n_moves]=col;
 
@@ -21,15 +21,20 @@ int negamax(int *position) {
 
     for (int x = 0; x < 7; ++x) //check if next move is winning
         if(canPlay(position, x))
-            if(isWinningMove(position, x))
+            if(isWinningFromPosition(position, x))
                 return (42-n_moves)/2;
 
     int best_score = -41;
 
+    if (depth>MAX_DEPTH) {
+        return best_score;
+    }
+
     for (int x = 0; x < 7; ++x) {
         if(canPlay(position, x)) {
             position[n_moves] = x;
-            int score = -negamax(position);
+            depth++;
+            int score = -negamax(position, depth);
             if(score > best_score)
                 best_score=score;
         }
@@ -38,7 +43,7 @@ int negamax(int *position) {
 }
 
 int NMovesFromStart(int *position) {
-    int i = 0;
+    int i=0;
     while(position[i] != -1) {
         i++;
     }
@@ -66,3 +71,4 @@ bool isWinningMove(int *position, int col) {
     else
         return false;
 }
+*/

@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 using namespace std;
-
+/*
 extern "C" {
 #include "solver.h"
 }
@@ -38,7 +38,7 @@ TEST(testSolver, Negamax) {
             else
                 expected_score = line[0] - 48;
 
-            int score = negamax(position);
+            int score = negamax(position, 0);
 
             ASSERT_EQ(expected_score, score);
             std::cout << "test " << n_test <<" passed ! score : "<< score << std::endl;
@@ -68,4 +68,4 @@ TEST(testSolver, Negamax) {
 
     ASSERT_EQ(score,)
     */
-}
+//}
