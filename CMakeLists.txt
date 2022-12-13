@@ -4,7 +4,7 @@ project(PuissanceC C CXX)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_C_STANDARD 99)
 
-add_executable(PuissanceC main.c Game.c Game.h network.c network.h ihm.cpp minmax.c minmax.h)
+add_executable(PuissanceC main.c Game.c Game.h network.c network.h minmax.c minmax.h ihm.c)
 
 #SDL2
 find_package(SDL2 REQUIRED)

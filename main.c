@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "network.h"
 #include "minmax.h"
+#include "ihm.h"
 
 
 /*
@@ -119,15 +120,48 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        placeTokenTop(&board, 0, 1);
-        placeTokenTop(&board, 0, 1);
-        placeTokenTop(&board, 0, 1);
+        int i;
+        bool p1_turn = true;    //the game begins with player1
+        int victoriousPlayer;
+        int j;
+        int Nturn = 0;
 
-        print_array(&board);
-        int v = minmax(&board, 1, true, 1, 0);
-        printf("%d",v);
+        initWindow();
+        setP4();
+
+
+
+        do {
+            if(p1_turn) {   //Player 1 turn, waiting for his input
+                do {
+                    //scanf("%d", &i);
+                    i=handleEvents();
+                    //printf("%d",i);
+                }
+                while(!canPlayAt(&board, i));
+                j = placeTokenTop(&board, i, 1);
+                setTokenVisual(1, i,j);
+            }
+            else {  //player 2 turn, waiting for his move
+                j = computerMove(&board, 2, -1, &i);
+                setTokenVisual(2, i,j);
+            }
+            //printf("\n\n%d, %d\n\n", i,j);
+            Nturn ++;
+            p1_turn = !p1_turn; //flip to alternate player
+            print_array(&board);
+            //printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        } while (!(victoriousPlayer=victoryCheck(&board, i, j)) && Nturn != 42);    // play as long as no one won or if
+        // there are still valid move to make
+        if(Nturn == 42)
+            printf("Draw !");
+        else
+            printf("Player %d won !", victoriousPlayer);
+
     }
 
+    scanf("%d", NULL);
 
+    closeWindow();
     return 0;
 }

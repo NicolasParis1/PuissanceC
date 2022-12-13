@@ -7,6 +7,7 @@
 
 #include <stdbool.h>
 
-int minmax(int (*board)[13][12], int, bool, int, int);
+int minmax(int (*board)[13][12], int, int, int, int);
+int computerMove(int (*board)[13][12], int, int, int*);
 
 #endif //PUISSANCEC_MINMAX_H
