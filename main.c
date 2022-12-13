@@ -143,16 +143,16 @@ int main(int argc, char *argv[]) {
                 setTokenVisual(1, i,j);
             }
             else {  //player 2 turn, waiting for his move
-                j = computerMove(&board, 2, -1, &i);
+                j = computerMove(&board, 7, -1, &i);
                 setTokenVisual(2, i,j);
             }
             //printf("\n\n%d, %d\n\n", i,j);
             Nturn ++;
-            p1_turn = !p1_turn; //flip to alternate player
+            p1_turn = !p1_turn; /* flip to alternate player */
             print_array(&board);
             //printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        } while (!(victoriousPlayer=victoryCheck(&board, i, j)) && Nturn != 42);    // play as long as no one won or if
-        // there are still valid move to make
+        } while (!(victoriousPlayer=victoryCheck(&board, i, j)) && Nturn != 42);    /* play as long as no one won or if
+                                                                                there are still valid move to make */
         if(Nturn == 42)
             printf("Draw !");
         else

@@ -1,7 +1,6 @@
 #include "minmax.h"
 #include "Game.h"
 #include <stdio.h>
-#include "ihm.h"
 
 /* https://en.wikipedia.org/wiki/Minimax */
 int minmax(int (*board)[13][12], int depth, int player, int x_played, int y_played) {
@@ -13,14 +12,13 @@ int minmax(int (*board)[13][12], int depth, int player, int x_played, int y_play
     }
 
     /* If max depth reached or terminal node */
-    if (depth == 0 || !canPlay(board)) {    /* Heuristic */
-        return -threeAligned(board, x_played, y_played) * 50 - twoAligned(board, x_played, y_played) * 20;
-    }
+    if (depth == 0 || !canPlay(board))
+        return 0;
 
     int best_score = -1000;
     int score = best_score;
-    //for (int i = 0; i < WIDTH; ++i) {
-    for (int j = 0; j < WIDTH; ++j) {
+    for (int i = 0; i < WIDTH; ++i) {
+    /*for (int j = 0; j < WIDTH; ++j) {
         int i;
         switch (j) {    // Modified sequence, favors center columns
             case 0:
@@ -39,7 +37,7 @@ int minmax(int (*board)[13][12], int depth, int player, int x_played, int y_play
                 i=6; break;
             default :
                 i=j; break;
-        }
+        }*/
         if (canPlayAt(board, i)) {
             /* copy board */
             int board_cp[WIDTH + 6][HEIGHT + 6];
@@ -65,9 +63,9 @@ int computerMove(int (*board)[13][12], int depth, int player, int* i) {
     int column;
     int best_score= -1000;
     int score = best_score;
-    //for (*i = 0; *i < WIDTH; ++*i) {
-    for (int j = 0; j < WIDTH; ++j) {
-        switch (j) {    // Modified sequence, gives better results
+    for (*i = 0; *i < WIDTH; ++*i) {
+    //for (int j = 0; j < WIDTH; ++j) {
+        /*switch (j) {    // Modified sequence, gives better results
             case 0:
                 *i=3; break;
             case 1:
@@ -84,7 +82,7 @@ int computerMove(int (*board)[13][12], int depth, int player, int* i) {
                 *i=6; break;
             default :
                 *i=j; break;
-        }
+        }*/
         if(canPlayAt(board, *i)) {
             /* copy board */
             int board_cp[WIDTH + 6][HEIGHT + 6];
@@ -95,18 +93,12 @@ int computerMove(int (*board)[13][12], int depth, int player, int* i) {
             }
             /* Play the move on the fake board */
             int y = placeTokenTop(&board_cp, *i, player);
-
-            if(victoryCheck(&board_cp, *i, y) != 0) {   /* If we can win, play the move for real */
+            /* Recursive call, keep the best score */
+            score = -minmax(&board_cp, depth - 1, -player, *i, y);
+            //printf("%d\n", score);
+            if (score > best_score) {
+                best_score = score;
                 column = *i;
-                break;
-            }
-            else { /* else, recursive call the minimax algorithm, keep the best score */
-                score = -minmax(&board_cp, depth - 1, -player, *i, y);
-                //printf("score de cette branche %d\n", score);
-                if (score > best_score) {
-                    best_score = score;
-                    column = *i;
-                }
             }
         }
     }

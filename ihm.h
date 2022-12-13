@@ -15,6 +15,8 @@
 
 void initWindow();
 void setP4();
+void resetVisual(int (*board)[13][12]);
+void drawWinner(int (*board)[13][12], int, int);
 void setTokenVisual(int, int, int);
 void closeWindow();
 int handleEvents();
