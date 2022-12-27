@@ -33,7 +33,7 @@ target_link_libraries(
         GTest::gtest_main
 )
 
-add_library(solver solver.c Game.c)
+add_library(solver minmax.c Game.c)
 target_link_libraries(testSolver solver)
 
 include(GoogleTest)
