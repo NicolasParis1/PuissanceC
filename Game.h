@@ -11,6 +11,7 @@
 #define HEIGHT 6
 
 void setToken(int (*board)[13][12], int i, int j, int v);
+bool canPlayAtXY(int (*board)[13][12], int, int);
 bool canPlayAt(int (*board)[13][12], int);
 bool canPlay(int (*board)[13][12]);
 int placeTokenTop(int (*board)[13][12], int x, int v);

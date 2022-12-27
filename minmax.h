@@ -7,7 +7,10 @@
 
 #include <stdbool.h>
 
-int minmax(int (*board)[13][12], int, int, int, int);
+int minmax(int (*board)[13][12], int, int, int, int, int, int);
 int computerMove(int (*board)[13][12], int, int, int*);
+int heuristic(int (*board)[13][12]);
+void freeCountingBoard(int **board);
+
 
 #endif //PUISSANCEC_MINMAX_H

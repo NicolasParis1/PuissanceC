@@ -26,6 +26,12 @@ bool canPlayAt(int (*board)[13][12], int x) {
     else
         return false;
 }
+bool canPlayAtXY(int (*board)[13][12], int x, int y) {
+    if((*board)[x+3][y+3-1]!=0)
+        return true;
+    else
+        return false;
+}
 
 void setToken(int (*board)[13][12], int i, int j, int v) {
     (*board)[i][j] = v;

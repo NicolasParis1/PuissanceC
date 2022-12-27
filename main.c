@@ -133,17 +133,18 @@ int main(int argc, char *argv[]) {
 
         do {
             if(p1_turn) {   //Player 1 turn, waiting for his input
-                do {
+                //do {
                     //scanf("%d", &i);
-                    i=handleEvents();
+                    //i=handleEvents();
                     //printf("%d",i);
-                }
-                while(!canPlayAt(&board, i));
-                j = placeTokenTop(&board, i, 1);
+                //}
+                //while(!canPlayAt(&board, i));
+                //j = placeTokenTop(&board, i, 1);
+                j = computerMove(&board, 5, 1, &i);
                 setTokenVisual(1, i,j);
             }
             else {  //player 2 turn, waiting for his move
-                j = computerMove(&board, 7, -1, &i);
+                j = computerMove(&board, 5, -1, &i);
                 setTokenVisual(2, i,j);
             }
             //printf("\n\n%d, %d\n\n", i,j);
