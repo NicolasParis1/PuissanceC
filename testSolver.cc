@@ -4,10 +4,29 @@
 #include <fstream>
 #include <string>
 using namespace std;
-/*
 extern "C" {
-#include "solver.h"
+#include "minmax.h"
 }
+
+TEST(testSolver, heuristic) {
+    int score, expected_score;
+
+    score = 120;
+    expected_score = 120;
+
+    ASSERT_EQ(score,expected_score);
+}
+
+TEST(testSolver, heuristic2) {
+    int score, expected_score;
+
+    score = 120;
+    expected_score = 120;
+
+    ASSERT_EQ(score,expected_score);
+}
+
+/*
 
 TEST(testSolver, Negamax) {
     string line;
