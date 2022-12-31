@@ -27,7 +27,8 @@ bool canPlayAt(int (*board)[13][12], int x) {
         return false;
 }
 bool canPlayAtXY(int (*board)[13][12], int x, int y) {
-    if((*board)[x+3][y+3-1]!=0)
+    //if((*board)[x][y]==0 && ((*board)[x][y-1]!=0 || y==3) && y < HEIGHT + 2 && x > 2 && x < WIDTH + 3)    //TODO: mieux ?
+    if((*board)[x][y]==0 && y > 2 && y < HEIGHT + 2 && x > 2 && x < WIDTH + 3)
         return true;
     else
         return false;
