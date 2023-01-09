@@ -5,7 +5,7 @@
 #ifndef PUISSANCEC_MINMAX_H
 #define PUISSANCEC_MINMAX_H
 
-#include <stdbool.h>
+//#include <stdbool.h>
 
 int minmax(int (*board)[13][12], int, int, int, int, int, int);
 int minmax_no_heuristic(int (*board)[13][12], int, int, int, int, int, int);

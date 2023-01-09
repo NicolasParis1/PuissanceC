@@ -1,119 +1,69 @@
 //
-// Created by nicolas on 28/09/22.
+// Created by nicolas on 09/01/23.
 //
 
 #include "network.h"
-
-#include <sys/types.h>
+#include <stdio.h>
+#include <string.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
-#include <string.h>
 
-#define INVALID_SOCKET -1
-#define SOCKET_ERROR -1
-#define closesocket(param) close(param)
+void create_connection(int port, int *sock, int *client_sock) {
+    // create a socket
+    *sock = socket(AF_INET, SOCK_STREAM, 0);
 
-typedef int SOCKET;
-typedef struct sockaddr_in SOCKADDR_IN;
-typedef struct sockaddr SOCKADDR;
-
-struct sockets {
-    SOCKET sock;
-    SOCKET csock;
-};
-
-void createSocket(int port, SOCKET* sock, SOCKET* csock) {
-
-    /* Socket et contexte d'adressage du serveur */
-    SOCKADDR_IN sin;
-    //SOCKET sock;
-    socklen_t recsize = sizeof(sin);
-
-    /* Socket et contexte d'adressage du client */
-    SOCKADDR_IN csin;
-    //SOCKET csock;
-    socklen_t crecsize = sizeof(csin);
-
-    int sock_err;
-
-
-    /* Création d'une socket */
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-
-    /* Si la socket est valide */
-    if (sock != INVALID_SOCKET) {
-        printf("La socket %d est maintenant ouverte en mode TCP/IP\n", sock);
-
-        /* Configuration */
-        sin.sin_addr.s_addr = htonl(INADDR_ANY);  /* Adresse IP automatique */
-        sin.sin_family = AF_INET;                 /* Protocole familial (IP) */
-        sin.sin_port = htons(port);               /* Listage du port */
-        sock_err = bind(sock, (SOCKADDR *) &sin, recsize);
-
-        /* Si la socket fonctionne */
-        if (sock_err != SOCKET_ERROR) {
-            /* Démarrage du listage (mode server) */
-            sock_err = listen(sock, 5);
-            printf("Listage du port %d...\n", port);
-
-            /* Si la socket fonctionne */
-            if (sock_err != SOCKET_ERROR) {
-                /* Attente pendant laquelle le client se connecte */
-                printf("Patientez pendant que le client se connecte sur le port %d...\n", port);
-                csock = accept(sock, (SOCKADDR *) &csin, &crecsize);
-                printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr),
-                       htons(csin.sin_port));
-            } else
-                perror("listen");
-        } else
-            perror("bind");
-
-        /* Fermeture de la socket client et de la socket serveur */
-        printf("Fermeture de la socket client\n");
-        closesocket(csock);
-        printf("Fermeture de la socket serveur\n");
-        closesocket(sock);
-        printf("Fermeture du serveur terminée\n");
-    }
-}
-
-void closeSocket(SOCKET sock, SOCKET csock) {
-    closesocket(csock);
-    closesocket(sock);
-}
-
-int connectSocket(char* hostname, int port) {
-
-    SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
-    if(sock == INVALID_SOCKET)
-    {
-        perror("socket()");
-    }
-
-    int client_fd;
-
+    // bind the socket to a local address
     struct sockaddr_in serv_addr;
-
+    memset(&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
     serv_addr.sin_port = htons(port);
+    bind(*sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));    //TODO: if 0
 
-    inet_pton(AF_INET, hostname, &serv_addr.sin_addr);
-    client_fd = connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+    // listen for incoming connections
+    listen(*sock, 1);
 
+    // accept incoming connections
+    struct sockaddr_in cli_addr;
+    socklen_t cli_len = sizeof(cli_addr);
+    *client_sock = accept(*sock, (struct sockaddr*)&cli_addr, &cli_len);
+}
 
-    char buffer[1024];
-    if(send(sock, buffer, strlen(buffer), 0) < 0)
-    {
-        perror("send()");
+void connect_to(char *ip, int port, int *sock) {
+    // create a socket
+    *sock = socket(AF_INET, SOCK_STREAM, 0);
+
+    // connect to the server
+    struct sockaddr_in serv_addr;
+    memset(&serv_addr, 0, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = inet_addr(ip);
+    serv_addr.sin_port = htons(port);
+    if(connect(*sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1) {
+        perror("connect()");
+        exit(errno);
     }
-    return client_fd;
 
 }
 
-void closeClient(int client_fd) {
-    close(client_fd);
+void close_socket(int *sock) {
+    close(*sock);
+}
+
+void send_int(int data, int *client_sock) {
+    char c = data;
+    send(*client_sock, &c, sizeof(c), 0);
+}
+
+int wait_for_int(int *sock) {
+    char c;
+    int x;
+    do {
+        recv(*sock, &c, sizeof(c), 0);
+        x = (int)c;
+    } while(x<0 || x>6);
+    return x;
 }
