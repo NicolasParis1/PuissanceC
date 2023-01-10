@@ -20,6 +20,17 @@ void initWindow() {
     }
 }
 
+void drawCircle(int xc, int yc, int r) {
+    for (int w = 0; w < r * 2; w++) {
+        for (int h = 0; h < r * 2; h++) {
+            int dx = r - w;
+            int dy = r - h;
+            if ((dx*dx + dy*dy) < (r * r)) {
+                SDL_RenderDrawPoint(renderer, xc + dx, yc + dy);
+            }
+        }
+    }
+}
 
 void setP4() {
     /*premier rectangle bleu*/
@@ -31,51 +42,59 @@ void setP4() {
     rect.y = 50;
     rect.w = 700;
     rect.h = 600;
+    int x;
+    int y;
+    int r = 40;
 
     SDL_RenderDrawRect(renderer, &rect);//dessine le rectangle
-    SDL_SetRenderDrawColor(renderer, 10, 10, 200, 205);//couleur
+    SDL_SetRenderDrawColor(renderer, 20, 30, 200, 255);//couleur
     SDL_RenderFillRect(renderer, &rect);//rempli le rectangle
 
 
     /*les 6*7 trous*/
-
+    SDL_SetRenderDrawColor(renderer, 210, 210, 210, 255);
     for (int i = 0; i < 7; i++) {
         for (int j = 0; j < 6; j++) {
-            rect.x = 50+10+i*100;
-            rect.y = 50+10+j*100;
-            rect.w = 80;
-            rect.h = 80;
+            x = 50 + 30 + (i * 100 + 20);
+            y = 50 + 30 + (j * 100 + 20);
 
-            SDL_RenderDrawRect(renderer, &rect); //dessine le rectangle
-            SDL_SetRenderDrawColor(renderer, 230, 230, 230, 255); //couleur
-            SDL_RenderFillRect(renderer, &rect);//rempli le rectangle
+            drawCircle(x, y, r);
         }
     }
+
     SDL_Delay(10);
     SDL_RenderPresent(renderer);
 }
 
 
-void setTokenVisual(int np, int i, int j) {
+void setTokenVisual(int np, int x, int y) {
     /*	i between 1 and 7
         j between 1 and 6
         np 1 or 2*/
+    int speed = 20;
+    for (int j = 6; j >= y  ; j--) {
+        /* erase */
+        int xc = 50 + 30 + x * 100 + 20;
+        int yc = 50 + 30 + (4-j) * 100 + 20;
+        int r = 40;
+        SDL_SetRenderDrawColor(renderer, 210, 210, 210, 255); //couleur
+        drawCircle(xc, yc, r);
+        SDL_Delay(speed);
 
-    SDL_Rect rect;
-    rect.x = 50 + 10 + i * 100;
-    rect.y = 50 + 10 + (5-j) * 100;
-    rect.w = 80;
-    rect.h = 80;
-    //SDL_RenderDrawRect(renderer, &rect); //dessine le rectangle
-    if (np == 1) {	/*player 1 (yellow)*/
-        SDL_SetRenderDrawColor(renderer, 230, 230, 30, 255); //couleur
+        yc = 50 + 30 + (5-j) * 100 + 20;
+
+        //SDL_RenderDrawRect(renderer, &rect); //dessine le rectangle
+        if (np == 1) {	/*player 1 (yellow)*/
+            SDL_SetRenderDrawColor(renderer, 230, 230, 30, 255); //couleur
+        }
+        else {			/*player 2 (red)*/
+            SDL_SetRenderDrawColor(renderer, 230, 20, 20, 255); //couleur
+        }
+        drawCircle(xc, yc, r);
+        SDL_Delay(speed);
+        SDL_RenderPresent(renderer);
     }
-    else {			/*player 2 (red)*/
-        SDL_SetRenderDrawColor(renderer, 230, 20, 20, 255); //couleur
-    }
-    SDL_RenderFillRect(renderer, &rect);//rempli le rectangle
     SDL_Delay(200);
-    SDL_RenderPresent(renderer);
 }
 
 void resetVisual(int (*board)[13][12]) {
