@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
 #include "Game.h"
 #include "network.h"
@@ -10,7 +9,6 @@
 
 
 int main(int argc, char *argv[]) {
-    srand(time(NULL));
 
     /* create and initialize the board */
     int board[WIDTH+6][HEIGHT+6];
@@ -143,8 +141,6 @@ int main(int argc, char *argv[]) {
 
     printf("\nSend any key to close the program...");
     scanf("%d", NULL);
-
-
 
     closeWindow();
     return 0;
