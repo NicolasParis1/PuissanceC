@@ -108,42 +108,58 @@ void resetVisual(int (*board)[13][12]) {
     }
 }
 
-void drawWinner(int (*board)[13][12], int i, int j) {
-    /* Essentially the winnerCheck function. Breaking instead of returning to extract dy and dx to use them to draw the
-     * line over the winning tokens */
+void drawWinner(int (*board)[13][12]) {
+    /* Essentially the winnerCheck function */
 
-    i=i+3;
-    j=j+3;
-    int player = (*board)[i][j];
+    for (int y = 3; y < HEIGHT + 3; ++y) {
+        for (int x = 3; x < WIDTH + 3; ++x) {
+            int player = (*board)[x][y];
+            if(player != 0) {
+                int xc, yc;
+                int r = 40;
 
-    bool isVertical = false;
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); /* set color */
 
-    //Vertical check
-    if (j >= 3)
-        if ((*board)[i][j - 1] == player && (*board)[i][j - 2] == player && (*board)[i][j - 3] == player) {
-            /* If the winning tokens are vertically aligned, the i,j token is on top and the bottom one is at i,j-3 */
-            SDL_Rect rect;
-            rect.x = 50 + 30 + i * 100;
-            rect.y = 50 + 30 + (5-j) * 100;
-            rect.w = 80;
-            rect.h = 80*4;
-            SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
-            SDL_RenderFillRect(renderer, &rect);//rempli le rectangle
-            SDL_Delay(200);
-            SDL_RenderPresent(renderer);
-            return;
-        }
-/*
-    if(!isVertical)
-    //Both diagonals and horizontal
-    for (int dy = -1; dy <= 1; ++dy) {
-        for (int dx = 0; dx <= 3; ++dx) {
-            if ((*board)[x + dx - 3][y+dy*3-dx*dy] == player && (*board)[x + dx - 2][y + dy*2-dx*dy] == player &&
-                (*board)[x + dx - 1][y + dy-dx*dy] == player && (*board)[x + dx][y-dx*dy] == player)
-                return player;
+                /* Vertical check */
+                if (y >= 3)
+                    if ((*board)[x][y - 1] == player && (*board)[x][y - 2] == player && (*board)[x][y - 3] == player) {
+                        int x1 = 50 + 30 + (x-3) * 100 + 20;
+                        int y1 = 50 + 30 + (y - 1 - 3) * 100 + 20;
+                        int y2 = 50 + 30 + (y + 2 - 3) * 100 + 20;
+                        SDL_RenderDrawLine(renderer, x1-2, y1, x1-1, y2);
+                        SDL_RenderDrawLine(renderer, x1-1, y1, x1-2, y2);
+                        SDL_RenderDrawLine(renderer, x1, y1, x1, y2);
+                        SDL_RenderDrawLine(renderer, x1+1, y1, x1+1, y2);
+                        SDL_RenderDrawLine(renderer, x1+2, y1, x1+2, y2);
+                        SDL_RenderPresent(renderer);
+                        return;
+                    }
+
+                /* Both diagonals and horizontal */
+                for (int dy = -1; dy <= 1; ++dy) {
+                    for (int dx = 0; dx <= 3; ++dx) {
+                        if ((*board)[x + dx - 3][y + dy * 3 - dx * dy] == player &&
+                            (*board)[x + dx - 2][y + dy * 2 - dx * dy] == player &&
+                            (*board)[x + dx - 1][y + dy - dx * dy] == player &&
+                            (*board)[x + dx][y - dx * dy] == player) {
+
+                            int x1 = 50 + 30 + (x + dx - 3 - 3) * 100 + 20;
+                            int y1 = 50 + 30 + (y - dy * 3 + dx * dy + 2) * 100 + 20;
+                            int x2 = 50 + 30 + (x + dx - 3) * 100 + 20;
+                            int y2 = 50 + 30 + (y + dx * dy + 2) * 100 + 20;
+                            SDL_RenderDrawLine(renderer, x1, y1-2, x2, y2-2);
+                            SDL_RenderDrawLine(renderer, x1, y1-1, x2, y2-1);
+                            SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+                            SDL_RenderDrawLine(renderer, x1, y1+1, x2, y2+1);
+                            SDL_RenderDrawLine(renderer, x1, y1+2, x2, y2+2);
+                            SDL_RenderPresent(renderer);
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
-*/
 }
 
 void closeWindow() {

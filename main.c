@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
                 setTokenVisual(1, i,j);
             }
             else {  /* player 2 turn, computing his move */
-                j = computerMove(&board, 3, -1, &i);
+                j = computerMove(&board, 11, -1, &i);
                 setTokenVisual(2, i,j);
             }
             Nturn ++;
@@ -138,6 +138,8 @@ int main(int argc, char *argv[]) {
             close_socket(&csock);
         }
     }
+
+    drawWinner(&board);
 
     printf("\nSend any key to close the program...");
     scanf("%d", NULL);

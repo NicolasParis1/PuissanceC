@@ -1,8 +1,5 @@
 # Directories
-S_DIR=src
-B_DIR=build
-
-$(shell mkdir -p $(B_DIR))
+S_DIR=.
 
 # Files
 S_FILES=$(S_DIR)/*.c
@@ -24,5 +21,3 @@ Build:
 build_run:Build
 	$(EXEC)
 
-clean:
-	rm -rf $(B_DIR)/*
