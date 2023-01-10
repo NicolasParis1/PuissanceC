@@ -13,7 +13,7 @@ EXEC=PuissanceC
 # Build settings
 CC=gcc
 # SDL options
-CFLAGS=-O3 -lSDL `sdl2-config --cflags --libs`
+CFLAGS=-O3 -lSDL2 `sdl2-config --cflags --libs`
 
 
 all:Build

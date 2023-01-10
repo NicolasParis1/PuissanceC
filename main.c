@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
                 setTokenVisual(1, i,j);
             }
             else {  /* player 2 turn, computing his move */
-                j = computerMove(&board, 3, -1, &i);
+                j = computerMove(&board, 11, -1, &i);
                 setTokenVisual(2, i,j);
             }
             Nturn ++;
@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
                         j = placeTokenTop(&board, i, 1);
                     }
                     else {  /* Compute the move for real if it is not the first one */
-                        j = computerMove(&board, 10, 1, &i);
+                        j = computerMove(&board, 11, 1, &i);
                     }
                     setTokenVisual(1, i,j);
                     send_int(i, &csock);    /* Send horizontal position to client */
@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) {
                     setTokenVisual(1, i,j);
                 }
                 else {  /* player 2 turn, compute his move */
-                    j = computerMove(&board, 10, -1, &i);
+                    j = computerMove(&board, 11, -1, &i);
                     send_int(i, &csock);
                     setTokenVisual(2, i,j);
                 }
