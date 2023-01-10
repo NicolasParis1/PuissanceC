@@ -20,5 +20,6 @@ void drawWinner(int (*board)[13][12], int, int);
 void setTokenVisual(int, int, int);
 void closeWindow();
 int handleEvents();
+void drawCircle(int xc, int yc, int r);
 
 #endif
