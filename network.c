@@ -54,16 +54,18 @@ void close_socket(int *sock) {
 }
 
 void send_int(int data, int *client_sock) {
-    char c = data;
-    send(*client_sock, &c, sizeof(c), 0);
+    char c[4];
+    sprintf(c, "%d", data+1);
+    send(*client_sock, c, sizeof(c), 0);
 }
 
 int wait_for_int(int *sock) {
-    char c;
+    char c[1024];
     int x;
     do {
-        recv(*sock, &c, sizeof(c), 0);
-        x = (int)c;
-    } while(x<0 || x>6);
-    return x;
+        recv(*sock, c, 1024, 0);
+        x = atoi(c);
+    } while(x<1 || x>7);
+    printf("%d", x-1);
+    return x-1;
 }

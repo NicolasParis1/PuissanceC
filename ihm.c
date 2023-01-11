@@ -70,7 +70,8 @@ void setTokenVisual(int np, int x, int y) {
     /*	i between 1 and 7
         j between 1 and 6
         np 1 or 2*/
-    int speed = 15;
+    int speed = 30;
+    SDL_Delay(200);
     for (int j = 6; j >= y  ; j--) {
         /* erase */
         int xc = 50 + 30 + x * 100 + 20;

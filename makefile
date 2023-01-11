@@ -5,7 +5,7 @@ S_DIR=.
 S_FILES=$(S_DIR)/*.c
 
 # Output
-EXEC=PuissanceC
+EXEC=p4
 
 # Build settings
 CC=gcc
