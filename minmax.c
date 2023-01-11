@@ -195,7 +195,7 @@ int heuristic(int (*board)[13][12]) {
                         return 999999999 * TokenV; /* We can stop here, the game has been won */
 
                     default :
-                        break; //TODO: Check it doesn't happen
+                        break;
                 }
                 if(i!=1) {
                     for (int k = 0; k < i; ++k) {
@@ -216,7 +216,7 @@ int heuristic(int (*board)[13][12]) {
                             i++;
                         }
                         if (i > maxI) {
-                            maxI = i-1; //TODO: -1 ou pas ?
+                            maxI = i-1;
                             maxDx = dx;
                             maxDy = dy;
                         }
@@ -285,7 +285,7 @@ int heuristic(int (*board)[13][12]) {
                             return 999999999 * TokenV; /* We can stop here, the game has been won */
 
                         default :
-                            break;  //TODO: Check it doesn't happen
+                            break;
 
                     }
                 }
@@ -308,7 +308,7 @@ int heuristic(int (*board)[13][12]) {
                             value += 40 * TokenV;
                             break;
                         default :
-                            break;    //TODO: check it doesn't happen
+                            break;
                     }
                 }
             }
@@ -323,7 +323,6 @@ int computerMove(int (*board)[13][12], int depth, int player, int* i) {
     int column;
     int best_score= -1999999999;
     int score = best_score;
-    //for (*i = 0; *i < WIDTH; ++*i) {
     for (int j = 0; j < WIDTH; ++j) {
         switch (j) {    // Modified sequence, gives better results
             case 0:

@@ -16,7 +16,6 @@ void initWindow() {
     if (renderer) {
         SDL_SetRenderDrawColor(renderer, 210, 210, 210, 255);
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-        //isRunning = true;
     }
 }
 
@@ -71,7 +70,7 @@ void setTokenVisual(int np, int x, int y) {
     /*	i between 1 and 7
         j between 1 and 6
         np 1 or 2*/
-    int speed = 20;
+    int speed = 15;
     for (int j = 6; j >= y  ; j--) {
         /* erase */
         int xc = 50 + 30 + x * 100 + 20;
@@ -171,7 +170,6 @@ void closeWindow() {
 
 //handles any events that SDL noticed.
 int handleEvents() {
-    //the only event we'll check is the  SDL_QUIT event.
     SDL_Event event;
     //SDL_PollEvent(&event);
     while(1) {
@@ -186,25 +184,18 @@ int handleEvents() {
                 switch (*state) {
                     case 'A':
                         return 0;
-                        break;
                     case 'Z':
                         return 1;
-                        break;
                     case 'E':
                         return 2;
-                        break;
                     case 'R':
                         return 3;
-                        break;
                     case 'T':
                         return 4;
-                        break;
                     case 'Y':
                         return 5;
-                        break;
                     case 'U':
                         return 6;
-                        break;
                     default:
                         break;
                 }
